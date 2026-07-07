@@ -291,7 +291,7 @@ def save_outputs(results: list[dict[str, Any]], output_dir: Path, task_name: str
 def default_model(provider: str) -> str:
     if provider == "openai":
         return "gpt-5.4"
-    return "qwen3-vl-plus"
+    return "qwen2.5-vl"
 
 
 def parse_args() -> argparse.Namespace:
@@ -302,7 +302,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", default="outputs", help="Output folder")
     parser.add_argument("--task-name", default="include", help="Output filename prefix")
     parser.add_argument("--provider", choices=["openai", "qwen"], default="openai")
-    parser.add_argument("--model", default=None, help="Model name; defaults to gpt-5.4 or qwen3-vl-plus")
+    parser.add_argument("--model", default=None, help="Model name; defaults to gpt-5.4 or qwen2.5-vl")
     parser.add_argument("--api-key-env", default=None, help="API key environment variable")
     parser.add_argument("--base-url", default=None, help="Optional OpenAI-compatible base URL, e.g. DashScope")
     parser.add_argument("--sleep", type=float, default=0.0)
@@ -387,6 +387,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 

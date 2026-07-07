@@ -1,6 +1,6 @@
 """Convert PDFs to Markdown plus table/chart images using Docling.
 
-Adapted from D:\work\AI-external\titleAndAbstractDecision\PDF2MKD.py.
+Adapted from the project PDF-to-Markdown conversion workflow.
 Each PDF is converted into one article folder:
 
 output_root/
@@ -180,3 +180,4 @@ def convert_pdfs(
         encoding="utf-8",
     )
     return results
+

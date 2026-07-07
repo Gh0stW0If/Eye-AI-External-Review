@@ -10,3 +10,7 @@ Code for title/abstract screening and full-text external-validation review in op
 ## Secrets
 
 Copy `.env.example` to `.env` locally and fill in your own API keys. Do not commit `.env`.
+
+## License
+
+This project is licensed under the MIT License. See `LICENSE` for details.
