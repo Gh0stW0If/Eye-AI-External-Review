@@ -1,0 +1,8 @@
+openai
+pandas
+python-dotenv
+openpyxl
+docling
+pillow
+requests
+dashscope
