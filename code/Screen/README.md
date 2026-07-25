@@ -18,7 +18,7 @@ The script automatically stops later steps when an earlier step is negative:
 ## Files
 
 - `title_abstract_screen.py`: main CLI for reading CSV/Excel files, running the four-step screen, and exporting CSV results.
-- `../../prompts/Screen/prompts.py`: prompt templates and disease-specific notes.
+- `../../prompts/screen_prompts.xlsx`: approved prompt table for this workflow.
 - `screening_client.py`: optional OpenAI Batch API helper.
 - `requirements.txt`: dependencies.
 
@@ -113,10 +113,16 @@ python title_abstract_screen.py --input ".\examples\papers.csv" --model "gpt-5.4
 pip install -r requirements.txt
 ```
 
+## Prompt Handling
+
+The script contains only prompt placeholders. Before production use, insert or connect the approved prompts from `../../prompts/screen_prompts.xlsx`.
+
 ## Notes
 
 - Running the script calls model APIs and may incur cost.
 - This stage only uses titles and abstracts; it does not read full-text PDFs.
 - If JSON parsing fails, the corresponding step records `parse_error` and stores the raw error in the reason column.
+
+
 
 

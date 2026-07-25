@@ -115,7 +115,7 @@ def compare(left_path: Path, right_path: Path, output_dir: Path, left_name: str,
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Compare GPT/Qwen include-stage judgement CSV outputs")
+    parser = argparse.ArgumentParser(description="Compare GPT/Qwen external-validation-identification-stage judgement CSV outputs")
     parser.add_argument("--left", required=True, help="First model judgement CSV, e.g. GPT")
     parser.add_argument("--right", required=True, help="Second model judgement CSV, e.g. Qwen")
     parser.add_argument("--left-name", default="GPT")
@@ -142,3 +142,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

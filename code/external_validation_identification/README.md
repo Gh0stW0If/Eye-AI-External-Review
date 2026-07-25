@@ -1,4 +1,4 @@
-# Include Stage: PDF-to-Markdown, Dual-Model Judgement, and Debate
+# External Validation Identification: PDF-to-Markdown, Dual-Model Judgement, and Debate
 
 This module determines whether full-text articles have external validation evidence.
 
@@ -17,7 +17,7 @@ This module determines whether full-text articles have external validation evide
 - `external_validation_screen.py`: single-model Step 1/2/3 judgement CLI for GPT and Qwen.
 - `compare_results.py`: compares GPT/Qwen judgement CSVs and routes disagreement/manual-review cases.
 - `debate_judgement.py`: debates only inconsistent or unclear cases and exports the final judgement plus manual-review list.
-- `../../prompts/include/prompts.py`: Step 1, Step 2, and Step 3 prompts.
+- `../../prompts/external_prompts.xlsx`: approved prompt table for Step 1, Step 2, and Step 3.
 - `json_utils.py`: JSON parsing and CSV flattening helpers.
 - `requirements.txt`: dependencies.
 
@@ -41,7 +41,7 @@ mkd_root\paper_id\table_images.json
 ## Convert PDFs To Markdown
 
 ```powershell
-cd code\include
+cd code\external_validation_identification
 python pdf_to_markdown.py --input ".\examples\pdfs" --output-root ".\outputs\mkd"
 ```
 
@@ -131,10 +131,16 @@ debate_results\cataract_manual_review_after_debate.csv
 
 `cataract_manual_review_after_debate.csv` keeps records where GPT, Qwen, or debate is positive or unclear.
 
+## Prompt Handling
+
+The script contains only prompt placeholders. Before production use, insert or connect the approved prompts from `../../prompts/external_prompts.xlsx`. Debate/adjudication prompt text is stored in `../../prompts/debate_prompts.xlsx`.
+
 ## Notes
 
 - PDF conversion depends on `docling`.
 - Qwen image input depends on `dashscope` and `requests`.
 - Running this workflow calls model APIs and may incur cost.
 - Consistent `external_validation=No` from GPT and Qwen does not enter debate or manual-review lists.
+
+
 

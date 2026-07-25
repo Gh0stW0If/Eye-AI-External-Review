@@ -20,75 +20,7 @@ from openai import OpenAI
 from json_utils import flatten_final_json, parse_json_safely
 
 
-DEBATE_PROMPT = """Role: You are a senior medical AI evidence adjudicator.
-Your task is to produce the final high-confidence external-validation judgement
-by reconciling two AI-generated extraction results using the source text as the
-highest-priority authority when source text is available.
-
-Inputs:
-- source_text: full text or key sections from the article. This is the highest-priority evidence.
-- result_A: Step 1, Step 2, and Step 3 extraction/judgement from model A.
-- result_B: Step 1, Step 2, and Step 3 extraction/judgement from model B.
-
-Adjudication rules:
-1) Source truth has highest priority. If result_A and result_B conflict, use source_text to decide. If source_text is unavailable or does not resolve the conflict, set external_validation="Unclear" and explain.
-2) Use evidence-first judgement. Do not infer external validation from vague wording.
-3) External validation is Yes only when an independent test/validation dataset is clearly separate from model development data and has explicitly reported performance metrics.
-4) Random split, cross-validation folds, same-institution repartitioning, or temporal split alone are not external validation unless explicitly described as an independent external cohort.
-5) Retain the most granular dataset-level evidence from both results when source text supports it.
-6) Standardize metric names to uppercase and convert percentages to decimals between 0 and 1 when possible.
-7) If external_validation is Yes, name at least one external validation dataset in extraction_notes.reasoning.
-8) If the evidence remains ambiguous, use external_validation="Unclear" rather than forcing Yes or No.
-
-Return ONLY valid JSON using this schema:
-{
-  "title": "",
-  "authors": [],
-  "first_author_country": "",
-  "last_corresponding_author_country": "",
-  "method": "",
-  "task_objective": [],
-  "data_modality": [],
-  "diagnosed_diseases": [],
-  "supervision_type": "",
-  "validation_strategy": "",
-  "classification_type": "",
-  "external_validation": "Yes/No/Unclear",
-  "extraction_notes": {
-    "reasoning": "",
-    "conflict_flag": false
-  },
-  "datasets": [
-    {
-      "type": "development/internal validation/external validation/unclear",
-      "name": "",
-      "modality": "",
-      "source": "",
-      "country": "",
-      "prospective": "Yes/No/NA",
-      "population_country": "",
-      "count": {
-        "subjects": "Not reported",
-        "eyes": "Not reported",
-        "images": "Not reported"
-      },
-      "evaluation_metrics": [
-        {
-          "metric_name": "",
-          "value": "",
-          "original_text": "",
-          "location": ""
-        }
-      ],
-      "conflict_flag": false
-    }
-  ],
-  "conflict_report": [
-    {"field": "", "reasoning": ""}
-  ]
-}
-"""
-
+DEBATE_PROMPT = """PROMPT PLACEHOLDER: insert the approved debate/adjudication prompt from prompts/debate_prompts.xlsx before production use."""
 UNCLEAR_VALUES = {"", "unclear", "uncertain", "unknown", "not reported", "pending judgement", "pending", "na", "n/a", "parse_error", "error"}
 
 
@@ -295,14 +227,14 @@ def run_debate(args: argparse.Namespace) -> tuple[Path, Path, Path]:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Debate/adjudicate inconsistent or unclear include-stage judgements")
+    parser = argparse.ArgumentParser(description="Debate/adjudicate inconsistent or unclear external-validation-identification-stage judgements")
     parser.add_argument("--left", required=True, help="First judgement JSONL output")
     parser.add_argument("--right", required=True, help="Second judgement JSONL output")
     parser.add_argument("--left-name", default="GPT")
     parser.add_argument("--right-name", default="Qwen")
     parser.add_argument("--source-dir", default=None, help="Optional Markdown root used as source-text anchor")
     parser.add_argument("--output-dir", default="debate_results")
-    parser.add_argument("--task-name", default="include")
+    parser.add_argument("--task-name", default="external_validation_identification")
     parser.add_argument("--provider", choices=["openai", "qwen"], default="openai")
     parser.add_argument("--model", default="gpt-5.4")
     parser.add_argument("--api-key-env", default=None)
@@ -322,5 +254,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 

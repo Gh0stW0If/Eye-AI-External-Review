@@ -1,4 +1,4 @@
-"""JSON parsing and result-flattening helpers for include-stage screening."""
+"""JSON parsing and result-flattening helpers for external-validation-identification-stage screening."""
 
 from __future__ import annotations
 
@@ -172,3 +172,4 @@ def flatten_final_json(data: dict[str, Any], row_id: int | str = "") -> list[dic
         row["KAPPA"] = metric_value(metrics, ("KAPPA",))
         rows.append(row)
     return rows or [base]
+

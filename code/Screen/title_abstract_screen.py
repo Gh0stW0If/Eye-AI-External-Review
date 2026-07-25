@@ -6,7 +6,6 @@ import argparse
 import json
 import os
 import re
-import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -15,11 +14,28 @@ import pandas as pd
 from dotenv import load_dotenv
 from openai import OpenAI
 
-PROMPT_DIR = Path(__file__).resolve().parents[2] / "prompts" / "Screen"
-sys.path.insert(0, str(PROMPT_DIR))
-from prompts import STEP2_PROMPT, build_step1_prompt, build_step3_prompt, get_step4_prompt
 
 
+PROMPT_PLACEHOLDER_NOTE = (
+    "PROMPT PLACEHOLDER: insert the approved title/abstract screening prompt "
+    "from prompts/screen_prompts.xlsx before production use."
+)
+
+
+def build_step1_prompt(disease_key: str, disease_text: str | None = None) -> str:
+    disease = disease_text or disease_key
+    return f"{PROMPT_PLACEHOLDER_NOTE}\nStep 1 placeholder for disease scope and AI-method screening. Disease: {disease}."
+
+
+STEP2_PROMPT = f"{PROMPT_PLACEHOLDER_NOTE}\nStep 2 placeholder for article-type and study-design exclusion."
+
+
+def build_step3_prompt(disease_key: str) -> str:
+    return f"{PROMPT_PLACEHOLDER_NOTE}\nStep 3 placeholder for task-type screening. Disease key: {disease_key}."
+
+
+def get_step4_prompt(kind: str) -> str:
+    return f"{PROMPT_PLACEHOLDER_NOTE}\nStep 4 placeholder for original image/video input screening. Mode: {kind}."
 TITLE_COLUMNS = ("Title", "TITLE", "title")
 ABSTRACT_COLUMNS = ("Abstract", "ABSTRACT", "abstract")
 DECISION_COLUMNS = [
@@ -254,6 +270,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 

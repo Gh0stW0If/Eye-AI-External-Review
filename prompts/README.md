@@ -1,8 +1,9 @@
 # Prompts
 
-This folder stores prompt templates separately from runnable code.
+This folder stores prompt tables separately from runnable code.
 
-- `Screen/prompts.py`: prompts for title/abstract screening.
-- `include/prompts.py`: prompts for full-text external-validation assessment.
+- `screen_prompts.xlsx`: prompts for title/abstract screening.
+- `external_prompts.xlsx`: prompts for full-text external-validation identification.
+- `debate_prompts.xlsx`: prompt for debate/adjudication.
 
-The scripts under `code/` load these prompt files automatically using repository-relative paths.
+The scripts under `code/` intentionally contain only prompt placeholders and do not import prompt text from Python files.

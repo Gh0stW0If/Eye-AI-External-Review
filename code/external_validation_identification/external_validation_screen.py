@@ -13,7 +13,6 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import sys
 import time
 import requests
 import dashscope
@@ -26,11 +25,17 @@ from openai import OpenAI
 
 from json_utils import flatten_final_json, flatten_initial_json, parse_json_safely
 from markdown_converter import convert_pdfs
-PROMPT_DIR = Path(__file__).resolve().parents[2] / "prompts" / "include"
-sys.path.insert(0, str(PROMPT_DIR))
-from prompts import PROMPTS
 
 
+PROMPT_PLACEHOLDER_NOTE = (
+    "PROMPT PLACEHOLDER: insert the approved external-validation identification "
+    "prompt from prompts/external_prompts.xlsx before production use."
+)
+PROMPTS = {
+    "step1": f"{PROMPT_PLACEHOLDER_NOTE}\nStep 1 placeholder for extracting basic study information.",
+    "step2": f"{PROMPT_PLACEHOLDER_NOTE}\nStep 2 placeholder for extracting dataset and external-validation evidence.",
+    "step3": f"{PROMPT_PLACEHOLDER_NOTE}\nStep 3 placeholder for producing the model-level external-validation judgement.",
+}
 PDF_COLUMNS = ("PDF_Path", "pdf_path", "PDF", "pdf", "file_path", "FilePath")
 
 def get_qwen_upload_policy(api_key: str, model_name: str) -> dict[str, Any]:
@@ -303,7 +308,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--input-type", choices=["pdf", "markdown"], default="pdf")
     parser.add_argument("--mkd-root", default=None, help="Markdown output root for PDF conversion")
     parser.add_argument("--output-dir", default="outputs", help="Output folder")
-    parser.add_argument("--task-name", default="include", help="Output filename prefix")
+    parser.add_argument("--task-name", default="external_validation_identification", help="Output filename prefix")
     parser.add_argument("--provider", choices=["openai", "qwen"], default="openai")
     parser.add_argument("--model", default=None, help="Model name; defaults to gpt-5.4 or qwen2.5-vl")
     parser.add_argument("--api-key-env", default=None, help="API key environment variable")
@@ -391,6 +396,7 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
 
