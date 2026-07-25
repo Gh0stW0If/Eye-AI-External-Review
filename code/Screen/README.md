@@ -18,7 +18,7 @@ The script automatically stops later steps when an earlier step is negative:
 ## Files
 
 - `title_abstract_screen.py`: main CLI for reading CSV/Excel files, running the four-step screen, and exporting CSV results.
-- `prompts.py`: prompt templates and disease-specific notes.
+- `../../prompts/Screen/prompts.py`: prompt templates and disease-specific notes.
 - `screening_client.py`: optional OpenAI Batch API helper.
 - `requirements.txt`: dependencies.
 
@@ -34,7 +34,7 @@ Required columns:
 ## Usage
 
 ```powershell
-cd Screen
+cd code\Screen
 python title_abstract_screen.py --input ".\examples\papers.csv" --disease cataract
 ```
 
@@ -101,7 +101,7 @@ These criteria should be handled in later workflow stages or manually.
 
 ## API Key
 
-The default model is `gpt-5.4`. The script reads `OPENAI_API_KEY` from the environment and also attempts to load `.env` from the repository root.
+The default model is `gpt-5.4`. The script reads `OPENAI_API_KEY` from the environment and also attempts to load `.env` from the repository root. Use `public_information/.env.example` as the template.
 
 ```powershell
 python title_abstract_screen.py --input ".\examples\papers.csv" --model "gpt-5.4" --api-key-env "OPENAI_API_KEY"
@@ -118,4 +118,5 @@ pip install -r requirements.txt
 - Running the script calls model APIs and may incur cost.
 - This stage only uses titles and abstracts; it does not read full-text PDFs.
 - If JSON parsing fails, the corresponding step records `parse_error` and stores the raw error in the reason column.
+
 

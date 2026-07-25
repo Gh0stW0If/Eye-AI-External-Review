@@ -17,7 +17,7 @@ This module determines whether full-text articles have external validation evide
 - `external_validation_screen.py`: single-model Step 1/2/3 judgement CLI for GPT and Qwen.
 - `compare_results.py`: compares GPT/Qwen judgement CSVs and routes disagreement/manual-review cases.
 - `debate_judgement.py`: debates only inconsistent or unclear cases and exports the final judgement plus manual-review list.
-- `prompts.py`: Step 1, Step 2, and Step 3 prompts.
+- `../../prompts/include/prompts.py`: Step 1, Step 2, and Step 3 prompts.
 - `json_utils.py`: JSON parsing and CSV flattening helpers.
 - `requirements.txt`: dependencies.
 
@@ -41,7 +41,7 @@ mkd_root\paper_id\table_images.json
 ## Convert PDFs To Markdown
 
 ```powershell
-cd include
+cd code\include
 python pdf_to_markdown.py --input ".\examples\pdfs" --output-root ".\outputs\mkd"
 ```
 
@@ -65,7 +65,7 @@ Existing Markdown input:
 python external_validation_screen.py --input ".\outputs\mkd" --input-type markdown --provider openai --model gpt-5.4 --task-name cataract --output-dir ".\outputs"
 ```
 
-The script reads `OPENAI_API_KEY` from the environment or from a repository-root `.env` file. Output:
+The script reads `OPENAI_API_KEY` from the environment or from a repository-root `.env` file. Use `public_information/.env.example` as the template. Output:
 
 ```text
 outputs\cataract_openai_judgement.jsonl
@@ -78,7 +78,7 @@ outputs\cataract_openai_judgement.csv
 python external_validation_screen.py --input ".\examples\pdfs" --provider qwen --model qwen2.5-vl --task-name cataract --mkd-root ".\outputs\mkd" --output-dir ".\outputs"
 ```
 
-The script reads `QWEN_API_KEY` from the environment or from a repository-root `.env` file. Qwen Step 2 image input uses DashScope multimodal calls and temporary file upload.
+The script reads `QWEN_API_KEY` from the environment or from a repository-root `.env` file. Use `public_information/.env.example` as the template. Qwen Step 2 image input uses DashScope multimodal calls and temporary file upload.
 
 Output:
 
@@ -137,3 +137,4 @@ debate_results\cataract_manual_review_after_debate.csv
 - Qwen image input depends on `dashscope` and `requests`.
 - Running this workflow calls model APIs and may incur cost.
 - Consistent `external_validation=No` from GPT and Qwen does not enter debate or manual-review lists.
+

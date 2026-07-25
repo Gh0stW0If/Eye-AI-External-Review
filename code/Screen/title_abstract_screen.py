@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import re
+import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -14,6 +15,8 @@ import pandas as pd
 from dotenv import load_dotenv
 from openai import OpenAI
 
+PROMPT_DIR = Path(__file__).resolve().parents[2] / "prompts" / "Screen"
+sys.path.insert(0, str(PROMPT_DIR))
 from prompts import STEP2_PROMPT, build_step1_prompt, build_step3_prompt, get_step4_prompt
 
 
@@ -237,7 +240,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     load_dotenv()
-    load_dotenv(Path(__file__).resolve().parents[1] / ".env", override=False)
+    load_dotenv(Path(__file__).resolve().parents[2] / ".env", override=False)
     args = parse_args()
     api_key = os.getenv(args.api_key_env)
     if not api_key:
@@ -251,6 +254,8 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
 
 
 

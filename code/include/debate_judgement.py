@@ -313,6 +313,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     load_dotenv()
+    load_dotenv(Path(__file__).resolve().parents[2] / ".env", override=False)
     jsonl_path, csv_path, manual_path = run_debate(parse_args())
     print(f"Saved debate JSONL: {jsonl_path}")
     print(f"Saved debate CSV: {csv_path}")
@@ -321,3 +322,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
