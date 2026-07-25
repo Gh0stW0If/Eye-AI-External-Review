@@ -1,12 +1,12 @@
 # Eye-AI External Review
 
-Code and prompt tables for title/abstract screening and full-text external-validation identification in ophthalmic AI systematic review workflows.
+Code, prompt tables, and public information for title/abstract screening and full-text external-validation identification in ophthalmic AI systematic review workflows.
 
 ## Repository Structure
 
 - `code/`: runnable scripts.
 - `prompts/`: prompt tables. The prompt contents are stored in spreadsheet files and are not duplicated as Python prompt files.
-- `public_information/`: public release materials. These files will be added later.
+- `public_information/`: public release materials, including the included-paper list and human gold-standard sensitivity-analysis files.
 
 ## Modules
 
@@ -16,6 +16,12 @@ Code and prompt tables for title/abstract screening and full-text external-valid
 - `prompts/external_prompts.xlsx`: external-validation identification prompts.
 - `prompts/debate_prompts.xlsx`: debate/adjudication prompt.
 
+## Public Information
+
+- `public_information/includeList.xlsx`: list of 2,515 included articles with ID, title, and DOI.
+- `public_information/sensitivity analysis/screen_analysis.xlsx`: human gold-standard sensitivity-analysis file for the Screen stage, 600 records.
+- `public_information/sensitivity analysis/external_identification.xlsx`: human gold-standard sensitivity-analysis file for the external-validation-identification stage, 457 records.
+
 ## Prompt Handling
 
 The runnable scripts only contain prompt placeholders. Before production use, insert or connect the approved prompts from the spreadsheet files in `prompts/`. The spreadsheet files are preserved as the source of prompt text.
@@ -23,10 +29,6 @@ The runnable scripts only contain prompt placeholders. Before production use, in
 ## Secrets
 
 Copy `public_information/.env.example` to `.env` in the repository root and fill in your own API keys. Do not commit `.env`.
-
-## Public Information
-
-Public information files are not included yet. They will be released later in `public_information/`.
 
 ## License
 
